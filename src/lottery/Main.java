@@ -9,18 +9,8 @@ public class Main {
         int[] lottery = new int[numCount];
         for (int i = 0; i < numCount; i++) {
             int n = minNum + ThreadLocalRandom.current().nextInt(maxNum);
-            boolean duplicate = false;
-            for (int j = i - 1; j >= 0; j--) {
-                if (lottery[j] == n) {
-                    duplicate = true;
-                    break;
-                }
-            }
-            if (! duplicate) {
-                lottery[i] = n;
-            } else {
-                i--;
-            }
+            lottery[i] = n;
+
         }
         return lottery;
     }
