@@ -1,15 +1,15 @@
 package lottery;
 
 import java.util.Arrays;
-import java.util.Random;
+
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static int[] getLotteryNumbers(int numCount, int minNum, int maxNum) {
-        Random random = new Random();
         int[] lottery = new int[numCount];
         for (int i = 0; i < numCount; i++) {
-            int n = minNum + random.nextInt(maxNum);
+            int n = minNum + ThreadLocalRandom.current().nextInt(maxNum);
             boolean duplicate = false;
             for (int j = i - 1; j >= 0; j--) {
                 if (lottery[j] == n) {
@@ -43,11 +43,8 @@ public class Main {
     public static int getWin(int[] lottery, int[] user) {
         int win = 0;
         for (int i = 0; i < lottery.length; i++) {
-            for (int j = 0; j < user.length; j++) {
-                if (lottery[i] == user[j]) {
-                    win++;
-                    break;
-                }
+            if (lottery[i] == user[i]) {
+                win++;
             }
         }
         return win;
@@ -61,8 +58,7 @@ public class Main {
         int[] lottery = getLotteryNumbers(numbersCount, 0, lotteryCount);
 
         System.out.print("Виграли номери: ");
-        Arrays.stream(lottery).forEach(i -> System.out.print(i + " "));
-        System.out.println();
+        System.out.println(Arrays.toString(lottery));
 
         int win = getWin(lottery, userNumbers);
 
